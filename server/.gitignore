@@ -1,0 +1,8 @@
+#no git to:
+.env
+
+#no git to:
+node_modules
+
+#no git to:
+package-lock.json
