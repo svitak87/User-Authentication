@@ -9,7 +9,6 @@ const Login = () => {
     event.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
-    // Aquí podrías enviar los datos del formulario a través de una solicitud HTTP
   };
 
   return (
@@ -41,7 +40,7 @@ const Login = () => {
 
       <p>¿Don't you have an account?</p>
       <Link to="/register">
-        <p>Register now</p>
+        <p>Register now!</p>
       </Link>
     </div>
   );

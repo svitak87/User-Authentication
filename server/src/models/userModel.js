@@ -23,7 +23,7 @@ module.exports = (database) => {
         allowNull: false,
         unique: true,
         validate: {
-          isEmail: true, // Valida que el campo sea un correo electrónico
+          isEmail: true, 
         },
       },
       password: {
