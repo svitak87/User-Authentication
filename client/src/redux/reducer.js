@@ -1,4 +1,4 @@
-import { REGISTER_USER, REGISTER_USER_ERROR } from "./actions";
+import { REGISTER_USER, REGISTER_USER_ERROR, USER_LOGIN } from "./actions";
 
 const initialState = {
   users: [],
@@ -13,10 +13,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
         users: payload,
         error: null,
       };
+      case USER_LOGIN:
+        return {
+          ...state,
+          users:payload
+        }
     case REGISTER_USER_ERROR:
       return {
         ...state,
-        error: payload, // Establecemos el error recibido del servidor
+        error: payload, 
       };
     default:
       return state;

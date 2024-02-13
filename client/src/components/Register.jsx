@@ -7,17 +7,18 @@ import validate from "./validation";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
     lastname: "",
     email: "",
     password: "",
-    passwordTwo: ""
+    passwordTwo: "",
   });
   const [errors, setErrors] = useState({ email: "", password: "" });
-  const [passwordValidation , setPasswordValidation] = useState("");
+  const [passwordValidation, setPasswordValidation] = useState("");
   const [registrationError, setRegistrationError] = useState("");
+  const [successAcount, setSuccesAcount] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,19 +31,23 @@ const Register = () => {
   const submitForm = async (event) => {
     event.preventDefault();
     if (userData.password === userData.passwordTwo) {
-      try {
-        await dispatch(registerUser(userData));
-        navigate("/login");
-      } catch (error) {
-        if (error.message === "User already exists") {
-          // Si el usuario ya existe, mostramos el mensaje correspondiente
-          setRegistrationError("User already exists");
-        } else {
-          // Si hay otro error, mostramos un mensaje genérico
-          console.error("Registration error:", error);
-          setRegistrationError("Failed to register user");
-        }
-      }
+      console.log(userData); // Este console.log se muestra con los datos capturados
+      await dispatch(registerUser(userData))
+        .then(() => {
+          setSuccesAcount("Congratulations now you have an account");
+          setTimeout(() => {
+            navigate("/login");
+          }, 4000);
+        })
+        .catch(error => {
+          if (error.message === "User already exists") {
+            // Si el usuario ya existe, mostramos el mensaje correspondiente
+            setRegistrationError("User already exists");
+          } else {
+            // Manejar otros errores si es necesario
+            console.error(error);
+          }
+        });
     } else {
       setPasswordValidation("Passwords do not match");
       setTimeout(() => {
@@ -51,6 +56,7 @@ const Register = () => {
     }
   };
   
+
   return (
     <div>
       <h2>Register Now!</h2>
@@ -92,7 +98,7 @@ const Register = () => {
         <div>
           <label htmlFor="password">Password:</label>
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             value={userData.password}
@@ -104,7 +110,7 @@ const Register = () => {
         <div>
           <label htmlFor="password">Confirm password:</label>
           <input
-            type="text"
+            type="password"
             name="passwordTwo"
             id="passwordTwo"
             value={userData.passwordTwo}
@@ -115,9 +121,10 @@ const Register = () => {
         <div>
           <button type="submit">Submit</button>
         </div>
+        {passwordValidation && <p>{passwordValidation}</p>}
+        {registrationError && <p>{registrationError}</p>}
+        {successAcount && <p>{successAcount}</p>}
       </form>
-      {passwordValidation && <p>{passwordValidation}</p>}
-      {registrationError && <p>{registrationError}</p>}
       <p>¿Already registered?</p>
       <Link to="/login">
         <p>Login clicking here!</p>

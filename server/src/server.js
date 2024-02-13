@@ -4,6 +4,7 @@ const cors = require('cors');
 const server = express();
 const getAllUsersRoute = require("../src/routes/getAllUsersRoute");
 const registerUserRoute = require("../src/routes/registerUserRoute");
+const usersLogin = require('./routes/loginRoute');
 
 //MIDDLE WARES:
 server.use(cors());
@@ -14,5 +15,6 @@ server.use(express.json());
 
 server.use("/users", getAllUsersRoute);
 server.use("/users", registerUserRoute);
+server.use("/users", usersLogin);
 
 module.exports = server;
