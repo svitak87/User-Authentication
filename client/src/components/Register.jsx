@@ -12,6 +12,7 @@ const Register = () => {
     lastname: "",
     email: "",
     password: "",
+    passwordTwo: ""
   });
   const [errors, setErrors] = useState({ email: "", password: "" });
 
@@ -25,9 +26,11 @@ const Register = () => {
 
   const submitForm = (event) => {
     event.preventDefault();
-    dispatch(registerUser(userData)).then(() => {
-      navigate("/login"); 
-    });
+    if(userData.password === userData.passwordTwo){
+      dispatch(registerUser(userData)).then(() => {
+        navigate("/login"); 
+      });
+    }
   };
 
   return (
@@ -79,6 +82,17 @@ const Register = () => {
             required
           />
           {errors.password && <p>{errors.password}</p>}
+        </div>
+        <div>
+          <label htmlFor="password">Confirm password:</label>
+          <input
+            type="text"
+            name="passwordTwo"
+            id="passwordTwo"
+            value={userData.passwordTwo}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <button type="submit">Submit</button>
