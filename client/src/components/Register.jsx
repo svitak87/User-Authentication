@@ -14,6 +14,8 @@ const Register = () => {
     email: "",
     password: "",
     passwordTwo: "",
+    answerOne: "",
+    answerTwo: ""
   });
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [passwordValidation, setPasswordValidation] = useState("");
@@ -31,7 +33,6 @@ const Register = () => {
   const submitForm = async (event) => {
     event.preventDefault();
     if (userData.password === userData.passwordTwo) {
-      console.log(userData); // Este console.log se muestra con los datos capturados
       await dispatch(registerUser(userData))
         .then(() => {
           setSuccesAcount("Congratulations now you have an account");
@@ -39,12 +40,21 @@ const Register = () => {
             navigate("/login");
           }, 4000);
         })
-        .catch(error => {
-          if (error.message === "User already exists") {
-            // Si el usuario ya existe, mostramos el mensaje correspondiente
-            setRegistrationError("User already exists");
+        .catch((error) => {
+          if (error.message === "User already exists!") {
+            setRegistrationError("User already exists!");
+            setTimeout(() => {
+              setUserData({
+                name: "",
+                lastname: "",
+                email: "",
+                password: "",
+                passwordTwo: "",
+                answerOne: "",
+                answerTwo: ""
+              });
+            }, 4000);
           } else {
-            // Manejar otros errores si es necesario
             console.error(error);
           }
         });
@@ -55,7 +65,6 @@ const Register = () => {
       }, 3000);
     }
   };
-  
 
   return (
     <div>
@@ -69,6 +78,7 @@ const Register = () => {
             id="name"
             value={userData.name}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
@@ -80,6 +90,7 @@ const Register = () => {
             id="lastname"
             value={userData.lastname}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
@@ -91,6 +102,7 @@ const Register = () => {
             id="email"
             value={userData.email}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
           {errors.email && <p>{errors.email}</p>}
@@ -103,6 +115,7 @@ const Register = () => {
             id="password"
             value={userData.password}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
           {errors.password && <p>{errors.password}</p>}
@@ -115,6 +128,32 @@ const Register = () => {
             id="passwordTwo"
             value={userData.passwordTwo}
             onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="answerOne">What's your firts father name?</label>
+          <input
+            type="text"
+            name="answerOne"
+            id="answerOne"
+            value={userData.answerOne}
+            onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="answerTwo">What's your birth date?</label>
+          <p>If your birth date is 02/feb/1990, the answer must be like: "02021990"</p>
+          <input
+            type="text"
+            name="answerTwo"
+            id="answerTwo"
+            value={userData.answerTwo}
+            onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>

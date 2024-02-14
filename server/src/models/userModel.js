@@ -30,6 +30,14 @@ module.exports = (database) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      answerOne :{
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      answerTwo:{
+        type: DataTypes.STRING,
+        allowNull: false
+      }
     },
     {
       timestamps: false,

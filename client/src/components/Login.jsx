@@ -60,6 +60,7 @@ const Login = () => {
             id="email"
             value={userCredentials.email}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
           {errors.email && <p>{errors.email}</p>}
@@ -72,6 +73,7 @@ const Login = () => {
             id="password"
             value={userCredentials.password}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
           {errors.password && <p>{errors.password}</p>}
@@ -82,6 +84,9 @@ const Login = () => {
       <p>¿Don't you have an account?</p>
       <Link to="/register">
         <p>Register now!</p>
+      </Link>
+      <Link to="/recover">
+        <p>Forgot my password!</p>
       </Link>
     </div>
   );

@@ -5,8 +5,8 @@ const registrateUser = require('../controllers/registrateUser');
 
 router.post("/register", async (req, res) => {
   try {
-    const { name, lastname, email, password } = req.body;
-    const registratedUser = await registrateUser({ name, lastname, email, password });
+    const { name, lastname, email, password, answerOne, answerTwo } = req.body;
+    const registratedUser = await registrateUser({ name, lastname, email, password, answerOne, answerTwo });
     res.status(201).json(registratedUser);
   } catch (error) {
     if (error.message === "User already exists") {

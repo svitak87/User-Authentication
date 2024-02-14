@@ -1,8 +1,7 @@
-import { REGISTER_USER, REGISTER_USER_ERROR, USER_LOGIN } from "./actions";
+import { REGISTER_USER, USER_LOGIN, RECOVER_PASSWORD, UPDATE_PASSWORD } from "./actions";
 
 const initialState = {
   users: [],
-  error: null,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -11,18 +10,22 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         users: payload,
-        error: null,
       };
-      case USER_LOGIN:
-        return {
-          ...state,
-          users:payload
-        }
-    case REGISTER_USER_ERROR:
+    case USER_LOGIN:
       return {
         ...state,
-        error: payload, 
+        users: payload,
       };
+    case RECOVER_PASSWORD:
+      return {
+        ...state,
+        users: payload,
+      };
+      case UPDATE_PASSWORD:
+        return {
+          ...state,
+          users:payload,
+        }
     default:
       return state;
   }
